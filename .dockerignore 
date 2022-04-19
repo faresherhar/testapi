@@ -1,0 +1,15 @@
+# Cahce files
+__pycache__
+.pytest_cache
+
+# config files
+env
+.git
+
+# Config files
+.gitignore
+.dockerignore
+Dockerfiles
+
+# Test files
+test.py
