@@ -7,7 +7,7 @@ before_script:
 stages:
   - Static Analysis
   - Test
-  - Build & Push
+  - Docker Image
 
 pylint:
   stage: Static Analysis
@@ -21,7 +21,8 @@ unittests:
   script:
   - python test.py
 
-Build & Push:
+Build Push:
+  stage: Docker Image
   image: docker:latest
   services:
     - docker:dind
