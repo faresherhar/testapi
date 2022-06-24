@@ -25,11 +25,10 @@ Build Push:
   stage: Docker Image
   image: docker:latest
   services:
-    #- docker:20-dind
-    - docker:latest
+    - docker:19-dind
   before_script:
     - apk add --no-cache python3 py3-pip
   script:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URL
-    - docker build -t lbp.jfrog.io/default-docker-remote/testapi .
-    - docker pushlbp.jfrog.io/default-docker-remote/testapi
+    - docker build -t docker pull lbp.jfrog.io/default-docker-local/testapi .
+    - docker push docker pull lbp.jfrog.io/default-docker-local/testapi 
