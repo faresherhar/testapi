@@ -21,12 +21,10 @@ unittests:
   script:
   - python test.py
 
-build-push-docker-image-job:
+Build & Push:
   image: docker:latest
   services:
     - docker:dind
   script:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URL
     - echo "Hello There !!"
-#     - docker build -t $IMAGE_NAME .
-#     - docker push $IMAGE_NAME
