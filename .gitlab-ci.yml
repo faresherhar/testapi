@@ -7,7 +7,7 @@ before_script:
 stages:
   - Static Analysis
   - Test
-  - Docker Image
+  - Create Image
 
 # pylint:
 #   stage: Static Analysis
@@ -22,7 +22,7 @@ stages:
 #   - python test.py
 
 Build Push:
-  stage: Image
+  stage: Create Image
   image: quay.io/buildah/stable:v1.21.0
   variables:
     STORAGE_DRIVER: "vfs"
