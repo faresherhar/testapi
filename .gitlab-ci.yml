@@ -22,17 +22,12 @@ stages:
 #   - python test.py
 
 Build Push:
-  stage: Docker Image
-  image: docker:latest
-  services:
-    - docker:dind
+  stage: Image
+  image: quay.io/buildah/stable:v1.21.0
   variables:
-    DOCKER_HOST: tcp://thedockerhost:2375/
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
-  before_script:
-    - apk add --no-cache python3 py3-pip
+    STORAGE_DRIVER: "vfs"
+    BUILDAH_FORMAT: "docker"
   script:
-    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URL
-    - docker build -t docker pull lbp.jfrog.io/default-docker-local/testapi .
-    - docker push docker pull lbp.jfrog.io/default-docker-local/testapi 
+    - buildah login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URL
+    # - docker build -t docker pull lbp.jfrog.io/default-docker-local/testapi .
+    # - docker push docker pull lbp.jfrog.io/default-docker-local/testapi 
