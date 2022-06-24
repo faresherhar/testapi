@@ -12,9 +12,9 @@ stages:
 pylint:
   stage: Static Analysis
   script:
-  - pylint -d C0301 main.py
+  - pylint main.py
 
-pytest:
+unittests:
   stage: Test
   script:
   - python test.py
