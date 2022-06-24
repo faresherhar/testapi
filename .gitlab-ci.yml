@@ -26,6 +26,8 @@ Build Push:
   image: docker:latest
   services:
     - docker:dind
+  before-script:
+    - apk add python python-dev python pip
   script:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URL
     - echo "Hello There !!"
