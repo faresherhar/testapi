@@ -27,7 +27,7 @@ Build Push:
   services:
     - name: docker:19.03.12-dind
   before_script:
-  - docker info
+    - docker info
   #- apk add --no-cache python3 py3-pip
   script:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URL
