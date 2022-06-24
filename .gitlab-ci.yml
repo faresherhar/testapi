@@ -23,11 +23,7 @@ stages:
 
 Build Push:
   stage: Docker Image
-  image: docker:latest
-  services:
-    - docker:dind
-  before_script:
-    - apk add python python-dev python pip
+  image: quay.io/buildah/stable:latest
   script:
-    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URL
+    - buldah login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URL
     - echo "Hello There !!"
