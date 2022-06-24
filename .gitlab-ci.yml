@@ -9,17 +9,17 @@ stages:
   - Test
   - Docker Image
 
-pylint:
-  stage: Static Analysis
-  allow_failure: true
-  script:
-  - pylint main.py
+# pylint:
+#   stage: Static Analysis
+#   allow_failure: true
+#   script:
+#   - pylint main.py
 
-unittests:
-  stage: Test
-  allow_failure: true
-  script:
-  - python test.py
+# unittests:
+#   stage: Test
+#   allow_failure: true
+#   script:
+#   - python test.py
 
 Build Push:
   stage: Docker Image
