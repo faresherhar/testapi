@@ -23,7 +23,7 @@ stages:
 
 Build Push:
   stage: Create Image
-    image: docker:19.03.12
+  image: docker:19.03.12
   services:
     - name: docker:19.03.12-dind
   before_script:
