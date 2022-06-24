@@ -9,17 +9,17 @@ stages:
   - Test
   - Create Image
 
-# pylint:
-#   stage: Static Analysis
-#   allow_failure: true
-#   script:
-#   - pylint main.py
+pylint:
+  stage: Static Analysis
+  allow_failure: true
+  script:
+  - pylint main.py
 
-# unittests:
-#   stage: Test
-#   allow_failure: true
-#   script:
-#   - python test.py
+unittests:
+  stage: Test
+  allow_failure: true
+  script:
+  - python test.py
 
 Build Push:
   stage: Create Image
@@ -28,6 +28,7 @@ Build Push:
     - name: docker:19.03.12-dind
   before_script:
     - docker info
-  #- apk add --no-cache python3 py3-pip
   script:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URL
+    - docker build -t quay.io/faresherhar/testapi .
+    - docker push quay.io/faresherhar/testapi
