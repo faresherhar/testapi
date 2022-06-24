@@ -9,23 +9,21 @@ stages:
   - Test
   - Docker Image
 
-pylint:
-  stage: Static Analysis
-  allow_failure: true
-  script:
-  - pylint main.py
+# pylint:
+#   stage: Static Analysis
+#   allow_failure: true
+#   script:
+#   - pylint main.py
 
-unittests:
-  stage: Test
-  allow_failure: true
-  script:
-  - python test.py
+# unittests:
+#   stage: Test
+#   allow_failure: true
+#   script:
+#   - python test.py
 
 Build Push:
   stage: Docker Image
-  image: docker:latest
-  services:
-    - docker:19-dind
+  image: docker:19-dind
   before_script:
     - apk add --no-cache python3 py3-pip
   script:
