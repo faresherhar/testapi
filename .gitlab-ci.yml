@@ -28,4 +28,6 @@ Build Push:
     - apk add --no-cache python3 py3-pip
   script:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URL
-    - echo "Hello There !!"
+    - docker duild -t $IMAGE_NAME .
+    - docker push -t $IMAGE_NAME .
+
