@@ -7,7 +7,7 @@ before_script:
 stages:
   - Static Analysis
   - Test
-  - Create Image
+  - Build Push Image
 
 pylint:
   stage: Static Analysis
@@ -17,18 +17,28 @@ pylint:
 
 unittests:
   stage: Test
-  allow_failure: true
   script:
   - python test.py
 
 Build Push:
-  stage: Create Image
-  image: docker:19.03.12
+  stage: Build Push Image
+  image: docker:stable
+  variables:
+    DOCKER_HOST: tcp://dindservice:2375
+    DOCKER_TLS_CERTDIR: ""
   services:
-    - name: docker:19.03.12-dind
+    - name: docker:stable-dind
+      alias: dindservice
   before_script:
     - docker info
   script:
-    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URL
-    - docker build -t quay.io/faresherhar/testapi .
-    - docker push quay.io/faresherhar/testapi
+    - docker login -u ${REGISTRY_USER} -p ${REGISTRY_PASSWORD} ${REGISTRY_URL}
+    - docker build -t ${REGISTRY_URL}/${IMAGE_NAME}:${TAG_NAME} .
+    - docker push ${REGISTRY_URL}/${IMAGE_NAME}:${TAG_NAME}
+
+  # image: quay.io/buildah/stable:v1.18.0
+  # script:
+  #   - buildah login -u ${REGISTRY_USER} -p ${REGISTRY_PASSWORD} ${REGISTRY_URL}
+  #   - buildah bud -t ${IMAGE_NAME}:${TAG_NAME} .
+  #   - buildah push ${IMAGE_NAME}:${TAG_NAME} ${REGISTRY_URL}/${IMAGE_NAME}:${TAG_NAME}
+
