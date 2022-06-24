@@ -23,13 +23,17 @@ stages:
 
 Build Push:
   stage: Create Image
-  image: quay.io/buildah/stable:v1.21.0
+  image: quay.io/buildah/stable:v1.18.0
   variables:
     STORAGE_DRIVER: "vfs"
     BUILDAH_FORMAT: "docker"
   before_script:
     - apk add --no-cache python3 py3-pip
-  script:
-    - buildah login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_URL
-    # - docker build -t docker pull lbp.jfrog.io/default-docker-local/testapi .
-    # - docker push docker pull lbp.jfrog.io/default-docker-local/testapi 
+  script:  |
+    buildah  bud \
+      --format=$BUILDAH_FORMAT \
+      --no-cache \
+      -t lbp.jfrog.io/default-docker-local/testapi .
+
+    ls
+
