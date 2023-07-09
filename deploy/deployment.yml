@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testapi-deploy
+spec:
+  selector:
+    matchLabels:
+      app: testapi
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: testapi
+    spec:
+      containers:
+      - name: testapi
+        image: quay.io/faresherhar/testapi:latest
+        ports:
+        - containerPort: 8001
